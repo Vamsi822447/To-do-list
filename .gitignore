@@ -1,0 +1,15 @@
+# Virtual environment
+venv/
+
+# Flask instance folder (configs, db, secrets)
+instance/
+
+# Python cache / compiled files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# OS / editor files
+.DS_Store
+Thumbs.db
