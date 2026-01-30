@@ -13,3 +13,7 @@ __pycache__/
 # OS / editor files
 .DS_Store
 Thumbs.db
+
+
+.practice.py
+.practice1.py
