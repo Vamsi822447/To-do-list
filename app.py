@@ -14,8 +14,7 @@ class MyTask(db.Model):
 
     def __repr__(self) -> str:
         return f"Task{self.id}"
-
-@app.route('/',methods=['POST','GET'])
+@app.route('/',methods=['GET','POST'])
 def index():
     if request.method == 'POST':
         content = request.form['content']
@@ -23,13 +22,14 @@ def index():
         try:
             db.session.add(new_task)
             db.session.commit()
-            return redirect("/")
+            return redirect('/')
         except Exception as e:
             print(f"ERROR:{e}")
-            return f"ERROR:{e}"    
+            return f"ERROR:{e}"   
     else:
         tasks = MyTask.query.order_by(MyTask.created).all()
-    return render_template('index.html',tasks=tasks)
+        return render_template('index.html',tasks = tasks)         
+
 
 @app.route('/delete/<int:id>')
 def delete(id:int):
@@ -37,9 +37,9 @@ def delete(id:int):
     try:
         db.session.delete(delete_task)
         db.session.commit()
-        return redirect("/")
+        return redirect('/')
     except Exception as e:
-        return f"ERROR:{e}"        
+        return f"ERROR:{e}"    
 
 @app.route('/update/<int:id>',methods=['POST','GET'])
 def update(id:int):
@@ -48,11 +48,13 @@ def update(id:int):
         task.content = request.form['content']
         try:
             db.session.commit()
-            return redirect("/")
+            return redirect('/')
         except Exception as e:
-            return f"ERROR:{e}"
+            return f"ERROR:{e}"     
     else:
-        return render_template('update.html',task=task)        
+        return render_template('update.html',task=task)
+   
+      
 
 if __name__ == '__main__':
     with app.app_context():

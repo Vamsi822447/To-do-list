@@ -7,32 +7,33 @@
 
 
 {%block body%}
+<div class="content">
+    {% if tasks | length<1 %} <h3>There are no tasks... create one here</h3>
+        {%else%}
+        <h1>Tasks to be done</h1>
+        <table border="1">
+            <tr>
+                <th>Name of the task</th>
+                <th>Created at</th>
+                <th>Actions</th>
+            </tr>
+            {%for task in tasks%}
+            <tr>
+                <td>{{task.content}}</td>
+                <td>{{task.created.strftime("%Y-%m-%d")}}</td>
+                <td>
+                    <a href="/delete/{{task.id}}" class="delete">Delete</a>
+                    <br />
+                    <a href="/update/{{task.id}}" class="update">Update</a>
+                </td>
+            </tr>
+            {% endfor %}
 
-{% if tasks | length<1 %} <h3>There are no tasks... create one here</h3>
-    {%else%}
-    <h1>Tasks to be done</h1>
-    <table border="1">
-        <tr>
-            <td>Name of the task</td>
-            <td>Created at</td>
-            <td>Actions</td>
-        </tr>
-        {%for task in tasks%}
-        <tr>
-            <td>{{task.content}}</td>
-            <td>{{task.created.strftime("%Y-%m-%d")}}</td>
-            <td>
-                <a href="/delete/{{task.id}}">Delete</a>
-                <br />
-                <a href="/update/{{task.id}}">Update</a>
-            </td>
-        </tr>
-        {% endfor %}
-
-    </table>
-    {% endif %}
-    <form action="/" method="POST">
-        <input type="text" name="content" id="content">
-        <input type="submit" value="Add Task" id="btn-add">
-    </form>
-    {% endblock %}
+        </table>
+        {% endif %}
+        <form action="/" method="POST">
+            <input type="text" name="content" id="content">
+            <input type="submit" value="Add Task" id="btn-add">
+        </form>
+</div>
+{% endblock %}
