@@ -8,9 +8,9 @@ $card-bg: #1e1e1e; // container background
 $text-color: #e0e0e0; // general text
 $primary-color: #4dabf7; // blue accent
 $primary-hover: #339af0;
-$success-color: #37b24d; // green button
+$success-color: #37b24d; // green button / success flash
 $success-hover: #2f9e44;
-$error-color: #f03e3e; // red first column / delete
+$error-color: #f03e3e; // red first column / delete / error flash
 $error-hover: #c92a2a;
 $input-bg: #2c2c2c; // dark input
 $shadow-color: rgba(0, 0, 0, 0.6);
@@ -46,7 +46,58 @@ body {
         margin-bottom: 30px;
     }
 
+    // ===============================
+    // Flash messages styling
+    // ===============================
+    .alert {
+        padding: 0;
+        border-radius: 0;
+        font-weight: 600;
+        margin: 15px auto;
+        width: auto;
+        max-width: 600px;
+        text-align: center;
+        font-size: 1rem;
+        box-shadow: none;
+        border: none;
+        background-color: transparent;
+        transition: all 0.3s ease;
+        opacity: 0.95;
+
+        &.alert-success {
+            color: $success-color;
+        }
+
+        &.alert-error {
+            color: $error-color;
+        }
+
+        &:hover {
+            opacity: 1;
+        }
+
+        // Optional fade-out animation for auto-disappear
+        @keyframes fadeOut {
+            0% {
+                opacity: 0.95;
+            }
+
+            80% {
+                opacity: 0.95;
+            }
+
+            100% {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+        }
+
+        animation: fadeOut 3s forwards;
+    }
+
+    // ===============================
     // Form input + button aligned
+    // ===============================
     form {
         display: flex;
         justify-content: center;
@@ -106,28 +157,24 @@ body {
             text-align: center;
         }
 
-        // Center the Created at column data
         td:nth-child(3) {
             text-align: center;
         }
 
-        // First column red (ID)
         th:first-child,
         td:first-child {
-            color: $error-color;
+            color: white;
             font-weight: bold;
         }
 
-        // Task name header (1st column header - make it white)
         th:nth-child(1) {
             color: white;
         }
 
-        // Task name badge (2nd column) - white text, no background gradient
         td:nth-child(2) {
             font-weight: 600;
             font-size: 1.05rem;
-            color: white; // white text color
+            color: white;
             padding: 6px 14px;
             text-align: center;
         }

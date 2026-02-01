@@ -11,6 +11,7 @@
     {% if tasks | length<1 %} <h3>There are no tasks... create one here</h3>
         {%else%}
         <h1>Tasks to be done</h1>
+
         <table border="1">
             <tr>
                 <th>Name of the task</th>
@@ -22,9 +23,9 @@
                 <td>{{task.content}}</td>
                 <td>{{task.created.strftime("%Y-%m-%d")}}</td>
                 <td>
-                    <a href="/delete/{{task.id}}" class="delete">Delete</a>
+                    <a href="/delete/{{task.id}}" class="delete" onclick=confirmDelete()>Delete</a>
                     <br />
-                    <a href="/update/{{task.id}}" class="update">Update</a>
+                    <a href=" /update/{{task.id}}" class="update">Update</a>
                 </td>
             </tr>
             {% endfor %}
@@ -35,5 +36,14 @@
             <input type="text" name="content" id="content">
             <input type="submit" value="Add Task" id="btn-add">
         </form>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <div class="alert alert-{{ category }}">
+            {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
 </div>
 {% endblock %}
